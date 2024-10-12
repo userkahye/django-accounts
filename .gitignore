@@ -2,5 +2,5 @@
 __pycache__/
 
 # Ignore Database migrations 
-migrations/
+**/migrations/
 
