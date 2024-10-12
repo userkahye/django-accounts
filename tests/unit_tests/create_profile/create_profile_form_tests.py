@@ -35,11 +35,11 @@ class RegistrationFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors)
 
-    def test_password_length(self):
+    def test_password_min_length(self):
         form_data = {
-            'username': 'testuser2',
-            'email': 'test2@example.com',
-            'password': 'a' * 129  # 129 characters long
+            'username': 'testuser3',
+            'email': 'test3@example.com',
+            'password': 'short'  
         }
         form = RegistrationForm(data=form_data)
         self.assertFalse(form.is_valid())
