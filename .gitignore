@@ -1,3 +1,6 @@
 # Ignore Python cache directories
 __pycache__/
 
+# Ignore Database migrations 
+migrations/
+
