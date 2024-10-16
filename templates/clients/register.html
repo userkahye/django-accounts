@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Registration</title>
+
+  <!-- Google Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+
+  <div class="client-login-page">
+    <span class="material-symbols-outlined icon">account_circle</span>
+    <div class="client-login-text">
+      <span>Client</span><span> Registration</span>
+    </div>
+
+    <!-- Django form integration with AJAX -->
+    <form id="registrationForm" class="login-container" method="POST">
+      {% csrf_token %}
+
+      <!-- Success message div -->
+      <div id="successMessage" class="success-message"></div>
+
+      <!-- Username input -->
+      <input type="text" name="username" id="username" placeholder="Username" required>
+      <div id="usernameError" class="error-message"></div>
+
+      <!-- Email input -->
+      <input type="email" name="email" id="email" placeholder="Email" required>
+      <div id="emailError" class="error-message"></div>
+
+      <!-- Password field with toggle visibility -->
+      <div class="password-container">
+        <input id="password" name="password" type="password" placeholder="Password" required>
+        <span id="togglePassword" class="material-symbols-outlined toggle-password">visibility_off</span>
+      </div>
+      <div id="passwordError" class="error-message"></div>
+
+      <button type="submit">Register</button>
+    </form>
+
+  </div>
+
+  <script src="{% static 'js/register.js' %}"></script>
+
+</body>
+
+</html>
