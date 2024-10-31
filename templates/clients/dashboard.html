@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+
+        :root {
+            --body-background: #F1F5FA; 
+            --text-color-first: black;  
+            --layer-background-first: #FFFFFF; 
+            --layer-background-second: #E9E7FD; 
+            --border-color: 1px solid #B0C4DE;
+        }
+
+        .dark-mode {
+            --body-background: #111827; 
+            --text-color-first: white;  
+            --layer-background-first: #1F2937; 
+            --layer-background-second: #c9daf1; 
+            --border-color: #B0C4DE;
+        }
+
+        .theme-toggle-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .theme-toggle-button {
+            padding: 10px;
+            font-size: 10px;
+            background: var(--layer-background-first);
+            color: var(--text-color-first);
+            border: var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+
+        .sign-out-button {
+            padding: 10px;
+            font-size: 10px;
+            background: var(--layer-background-first);
+            color: var(--text-color-first);
+            border: var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: var(--body-background);
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            font-family: Inter, sans-serif;
+        }
+
+        @media (min-width: 900px) {
+            body {
+             padding: 50px 200px 200px;
+             margin:0;
+             gap: 150px;
+            }
+
+        }
+
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        
+        }
+
+        .dashboard-feature-container{
+            width: 100%;   
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        
+        @media (min-width: 1024px) {
+            .dashboard-feature-container{
+            width: 100%;   
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            gap: 100px;
+        }
+
+        }
+
+        .dashboard-container {
+            width: 100%;   
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        @media (min-width: 900px) {
+            .dashboard-container {
+                max-width: 500px;   
+            }
+
+        }
+
+        .dashboard-title {
+            color: var(--text-color-first);
+            font-size: 25px;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .overview-container {
+            display: flex;
+            width: 100%;    
+            gap: 15px;
+        }
+
+        .status-card {
+            flex: 1 3 auto;
+            padding: 35px 15px;
+            background: var(--layer-background-first);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border: var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+
+
+        .number {
+            font-size: 40px;
+            font-family: Inter, sans-serif;
+            font-weight: 700;
+        }
+
+        .status-text {
+
+            font-family: Inter, sans-serif;
+        }
+
+        .status-heading {
+            color: var(--text-color-first);
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .status-subtext {
+            color: var(--text-color-first);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        /* Latest Feature Overview */
+        .latest-feature-overview {
+            max-width: 100%;
+            width: 100%;
+            padding: 20px;
+            background: var(--layer-background-first);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border: var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feature-text-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feature-title {
+            color: var(--text-color-first);
+            font-size: 20px;
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .feature-project-title {
+            color: var(--text-color-first);
+            font-size: 15px;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .feature-view-reports-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .feature-view-reports-button {
+            padding: 10px;
+            background: linear-gradient(0deg, #5EEAD4 0%, #4EC2B1 100%);
+            border: none;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .feature-view-reports-text {
+            color: white;
+            font-size: 15px;
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+        }
+
+        .in-progress-completed-container{
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            width: 100%;
+        }
+
+        @media (min-width: 1025px) {
+
+            .in-progress-completed-container {
+                flex-direction: row; 
+                gap: 100px;
+            }
+        }
+
+
+        .in-progress-container {
+            width: 100%;
+            margin: auto;
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .in-progress-header {
+            width: 100%;
+            height: auto;
+            padding: 20px;
+            background: var(--layer-background-first);
+            border-radius: 20px 20px 0 0;
+            border-top: 1px solid #B0C4DE;
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+            border-bottom: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .in-progress-header-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: flex-end;
+        }
+
+        .in-progress-title,
+        .in-progress-filter-label {
+            color: var(--text-color-first);
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+            word-wrap: break-word;
+        }
+
+        .in-progress-title {
+            font-size: 20px;
+            flex: 1;
+        }
+
+        .in-progress-filter-label {
+            font-size: 13px;
+            text-align: right;
+            flex: 1;
+        }
+
+        .in-progress-current-date {
+            color: var(--text-color-first);
+            font-family: Inter, sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            align-self: flex-start;
+        }
+
+        .in-progress-scroll-container {
+            width: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px;
+            background: var(--layer-background-first);
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+        }
+
+        .in-progress-project-container {
+            box-sizing: border-box;
+            width: calc(100% - 20px);
+            padding: 30px;
+            background: var(--layer-background-second);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin: 10px 10px 50px 10px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .in-progress-project-title-description {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .in-progress-project-title {
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-color: #8ab3cf;
+        }
+
+        .in-progress-project-description {
+            color: black;
+            font-size: 10px;
+            font-weight: 400;
+            border-bottom: white;
+        }
+
+        .in-progress-project-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .in-progress-completion-status {
+            width: auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .in-progress-completion-percentage {
+            color: black;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .in-progress-completed-text {
+            font-weight: 400;
+            margin-left: 4px;
+        }
+
+        .in-progress-progress-container {
+            width: 100%;
+            background: white;
+            height: 5px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        .in-progress-progress-bar {
+            height: 100%;
+            background: #fb7185;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .in-progress-progress-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .in-progress-days-left {
+            color: black;
+            font-size: 12px;
+            font-weight: 550;
+        }
+
+        .in-progress-date-started {
+            color: black;
+            font-size: 11px;
+            font-weight: 400;
+        }
+
+        .in-progress-comment-container {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .in-progress-comment-button {
+            width: 100px;
+            padding: 10px;
+            background: linear-gradient(0deg, #fb7185 0%, #E26170 100%);
+            border-radius: 4px;
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        .in-progress-footer {
+            width: 100%;
+            height: 20px;
+            padding: 20px 40px;
+            background:var(--layer-background-first);
+            border-radius: 0 0 20px 20px;
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+            border-bottom: 1px solid #B0C4DE;
+            margin: auto;
+        }
+
+        .completed-completion-container {
+            width: 100%; /* Full width for responsiveness */ /* Max width for larger screens */
+            margin: auto; /* Center the container */
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .completed-header {
+            width: 100%;
+            height: auto; /* Allow height to adjust based on content */
+            padding: 20px; /* Reduce padding for smaller screens */
+            background: var(--layer-background-first);
+            border-radius: 20px 20px 0 0; /* Rounded top corners */
+            border-top: 1px solid #B0C4DE;
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+            border-bottom: none; /* No bottom border */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the left */
+            gap: 10px; /* Reduce gap for smaller screens */
+        }
+
+        .completed-header-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: flex-end;
+        }
+
+        .completed-title,
+        .completed-filter-label {
+            color: var(--text-color-first);
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+            word-wrap: break-word;
+        }
+
+        .completed-title {
+            font-size: 20px;
+            flex: 1;
+        }
+
+        .completed-filter-label {
+            font-size: 13px;
+            text-align: right;
+            flex: 1;
+        }
+
+        .completed-current-date {
+            color: var(--text-color-first);
+            font-family: Inter, sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            align-self: flex-start; /* Align date to the left */
+        }
+
+        .completed-scroll-container {
+            width: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px;
+            background: var(--layer-background-first);
+            border-radius: 0 0 10px 10px 0; /* Rounded bottom corners */
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+        }
+
+        .completed-project-container {
+            box-sizing: border-box;
+            width: calc(100% - 20px);
+            padding: 30px;
+            background: var(--layer-background-second);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin: 10px 10px 50px 10px; /* Adjust margins for smaller screens */
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .completed-project-title-description {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .completed-project-title {
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-color: #8ab3cf;
+        }
+
+        .completed-project-description {
+            color: black;
+            font-size: 10px;
+            font-weight: 400;
+        }
+
+        .completed-project-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .completed-completion-status {
+            width: auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .completed-completion-percentage {
+            color: black;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .completed-completed-text {
+            font-weight: 400;
+            margin-left: 4px; 
+        }
+
+        .completed-progress-container {
+            width: 100%;
+            background: #d9d9d9;
+            height: 5px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        .completed-progress-bar {
+            height: 100%;
+            background: rgb(2, 161, 161);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .completed-progress-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .completed-date-ended {
+            color: black;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .completed-date-started {
+            color: black;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .completed-comment-container {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .completed-comment-button {
+            display: flex;
+            padding: 10px;
+            background: linear-gradient(0deg, #5EEAD4 0%, #4EC2B1 100%);
+            border-radius: 4px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            justify-content: center; /* Optional: Centers the text horizontally */
+            align-items: center; /* Optional: Centers the text vertically */
+        }
+
+        .completed-CompletedFooter {
+            width: 100%; /* Full width for responsiveness */
+            height: 20px; /* Height of the footer */
+            padding: 20px 40px; /* Vertical and horizontal padding */
+            background: var(--layer-background-first);
+            border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+            border-left: 1px solid #B0C4DE;
+            border-right: 1px solid #B0C4DE;
+            border-bottom: 1px solid #B0C4DE;
+            margin: auto; /* Center the footer */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="theme-toggle-container"> 
+        <button class="sign-out-button"  id="sign-out-button">Sign out</button>
+        <button class="theme-toggle-button"  id="theme-toggle-button">Theme</button>
+    </div>
+
+    <div class="dashboard-feature-container">   
+        <div class="dashboard-container">
+            <div class="dashboard-title">     
+                <span style="font-size: 24px; font-weight: bold; background: linear-gradient(to right, #6b8ba1, #8ab3cf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    {{ client.username|capfirst }}'s
+                </span> Dashboard
+            </div>
+            <div class="overview-container">
+                <div class="status-card">
+                    <div class="number" style="color: #FB7185;">5</div>
+                    <div class="status-text">
+                        <span class="status-heading">Projects</span><br />
+                        <span class="status-subtext">in Progress</span>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="number" style="color: #4EC2B1;">10</div>
+                    <div class="status-text">
+                        <span class="status-heading">Projects</span><br />
+                        <span class="status-subtext">Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="latest-feature-overview">
+            <div class="feature-text-container">
+                <div class="feature-title">Latest Feature</div>
+                <div class="feature-project-title" style="text-decoration: underline; text-decoration-color: #8ab3cf;">
+                    Lorem ipsum dolor sit amet consectetur adipiscing elit.
+                </div>
+            </div>
+            <div class="feature-view-reports-container">
+                <button class="feature-view-reports-button">
+                    <span class="feature-view-reports-text">View Reports</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="in-progress-completed-container">
+        <div class="in-progress-container">
+            <div class="in-progress-header">
+                <div class="in-progress-header-content">
+                <div class="in-progress-title">In Progress</div>
+                <div class="in-progress-filter-label">Filter</div>
+                </div>
+                <div class="in-progress-current-date">October, 10th</div>
+            </div>
+        
+            <div class="in-progress-scroll-container">
+            <div class="in-progress-project-container">
+                <div class="in-progress-project-title-description">
+                <div class="in-progress-project-title">Curabitur pretium tincidunt lacus.</div>
+                <div class="in-progress-project-description">Nulla gravida orci a odio, vel scelerisque libero cursus id. Ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit laoreet nibh, sed dictum libero tincidunt id. Mauris pretium purus eget tellus interdum, nec sollicitudin neque scelerisque.</div>
+                </div>
+                <div class="in-progress-project-progress">
+                    <div class="in-progress-completion-status">
+                    <span class="in-progress-completion-percentage">50%</span>
+                    </div>
+                    <div class="in-progress-progress-container">
+                    <div class="in-progress-progress-bar" style="width: 50%;"></div>
+                    </div>
+                    <div class="in-progress-progress-info">
+                        <div class="in-progress-date-started">Started 10th October</div>
+                        <div class="in-progress-days-left">2 days left</div>
+                    </div>
+                </div>
+                <div class="in-progress-comment-container">
+                <button class="in-progress-comment-button">Comment</button>
+                </div>
+            </div>
+        
+            <div class="in-progress-project-container">
+                <div class="in-progress-project-title-description">
+                <div class="in-progress-project-title">Project Title 2</div>
+                <div class="in-progress-project-description">Description 2</div>
+                </div>
+                <div class="in-progress-project-progress">
+                <div class="in-progress-completion-status">
+                        <span class="in-progress-completion-percentage">70%</span>
+                </div>
+                <div class="in-progress-progress-container">
+                        <div class="in-progress-progress-bar" style="width: 70%;"></div>
+                </div>
+                <div class="in-progress-progress-info">
+                    <div class="in-progress-date-started">Started 5th October</div>
+                    <div class="in-progress-days-left">4 days left</div>
+                </div>
+                </div>
+                <div class="in-progress-comment-container">
+                <button class="in-progress-comment-button">Comment</button>
+                </div>
+            </div>
+        
+            <div class="in-progress-project-container">
+                <div class="in-progress-project-title-description">
+                <div class="in-progress-project-title">Project Title 3</div>
+                <div class="in-progress-project-description">Description 3</div>
+                </div>
+                <div class="in-progress-project-progress">
+                <div class="in-progress-completion-status">
+                    <span class="in-progress-completion-percentage">30%</span>
+                </div>
+                <div class="in-progress-progress-container">
+                    <div class="in-progress-progress-bar" style="width: 30%;"></div>
+                </div>
+                <div class="in-progress-progress-info">
+                    <div class="in-progress-date-started">Started 15th October</div>
+                    <div class="in-progress-days-left">1 day left</div>
+                </div>
+                </div>
+                <div class="in-progress-comment-container">
+                <button class="in-progress-comment-button">Comment</button>
+                </div>
+            </div>
+            </div>
+            <div class="in-progress-footer"></div>
+        </div>
+
+        <div class="completed-completion-container">
+            <div class="completed-header">
+                <div class="completed-header-content">
+                        <div class="completed-title">Completed</div>
+                        <div class="completed-filter-label">Filter</div>
+                </div>
+                <div class="completed-current-date">October, 10th</div>
+            </div>
+        
+            <div class="completed-scroll-container">
+                <div class="completed-project-container">
+                    <div class="completed-project-title-description">
+                    <div class="completed-project-title">Lorem ipsum dolor sit amet consectetur.</div>
+                    <div class="completed-project-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                    </div>
+                    <div class="completed-project-progress">
+                    <div class="completed-completion-status">
+                        <span class="completed-completion-percentage">50%</span>
+                    </div>
+                    <div class="completed-progress-container">
+                        <div class="completed-progress-bar" style="width: 50%;"></div>
+                    </div>
+                    <div class="completed-progress-info">
+                            <div class="completed-date-started">Started 10th October</div>
+                            <div class="completed-date-ended">Ended 20th October</div>
+                    </div>
+                    </div>
+                    <div class="completed-comment-container">
+                    <button class="completed-comment-button">View Reports</button>
+                    </div>
+                </div>
+            
+                <div class="completed-project-container">
+                    <div class="completed-project-title-description">
+                    <div class="completed-project-title">Project Title 2</div>
+                    <div class="completed-project-description">Description 2</div>
+                    </div>
+                    <div class="completed-project-progress">
+                    <div class="completed-completion-status">
+                        <span class="completed-completion-percentage">70%</span>
+                    </div>
+                    <div class="completed-progress-container">
+                        <div class="completed-progress-bar" style="width: 70%;"></div>
+                    </div>
+                    <div class="completed-progress-info">
+                        <div class="completed-date-started">Started 5th October</div>
+                        <div class="completed-date-ended">Ended 20th October</div>
+                    </div>
+                    </div>
+                    <div class="completed-comment-container">
+                    <button class="completed-comment-button">View Reports</button>
+                    </div>
+                </div>
+            
+                <div class="completed-project-container">
+                    <div class="completed-project-title-description">
+                    <div class="completed-project-title">Project Title 3</div>
+                    <div class="completed-project-description">Description 3</div>
+                    </div>
+                    <div class="completed-project-progress">
+                    <div class="completed-completion-status">
+                        <span class="completed-completion-percentage">30%</span>
+                    </div>
+                    <div class="completed-progress-container">
+                        <div class="completed-progress-bar" style="width: 30%;"></div>
+                    </div>
+                    <div class="completed-progress-info">
+                        <div class="completed-date-started">Started 15th October</div>
+                        <div class="completed-date-ended">Ended 20th October</div>
+                    </div>
+                    </div>
+                    <div class="completed-comment-container">
+                    <button class="completed-comment-button">View Reports</button>
+                    </div>
+                </div>
+            </div>
+            <div class="completed-CompletedFooter"></div>
+        </div>
+    </div>
+
+      
+</body>
+
+<script>
+
+    const toggleButton = document.getElementById('theme-toggle-button');
+    const body = document.body;
+
+    toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const updateProgressBars = () => {
+        const progressData = [{
+            progress: 95,
+            started: "10th October",
+            daysLeft: 1
+          },
+          {
+            progress: 70,
+            started: "5th October",
+            daysLeft: 4
+          },
+          {
+            progress: 80,
+            started: "15th October",
+            daysLeft: 2
+          }
+        ];
+        progressData.forEach((data, index) => {
+          const progressBar = document.querySelectorAll('.in-progress-progress-bar')[index];
+          const completionPercentageText = document.querySelectorAll('.in-progress-completion-percentage')[index];
+          const daysLeftText = document.querySelectorAll('.in-progress-days-left')[index];
+          // Update the progress bar and percentage
+          progressBar.style.width = `${data.progress}%`;
+          completionPercentageText.innerHTML = `${data.progress}% <span class="in-progress-completed-text">completed</span>`;
+          // Update the days left text
+          daysLeftText.textContent = `${data.daysLeft} day${data.daysLeft !== 1 ? 's' : ''} left`;
+        });
+      };
+      updateProgressBars();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const updateProgressBars = () => {
+        const progressData = [{
+            progress: 100,
+            started: "10th October",
+            dateEnded: "10th October"
+            },
+            {
+            progress: 100,
+            started: "5th October",
+            dateEnded: "10th October"
+            },
+            {
+            progress: 100,
+            started: "15th October",
+            dateEnded: "25th October"
+            }
+        ];
+
+        progressData.forEach((data, index) => {
+            const progressBar = document.querySelectorAll('.completed-progress-bar')[index];
+            const completionPercentageText = document.querySelectorAll('.completed-completion-percentage')[index];
+            const dateEndedText = document.querySelectorAll('.completed-date-ended')[index];
+            // Update the progress bar and percentage
+            progressBar.style.width = `${data.progress}%`;
+            completionPercentageText.innerHTML = `${data.progress}% <span class="completed-completed-text">completed</span>`; // Added "completed" text with class
+            // Update the date ended text
+            dateEndedText.textContent = `Ended ${data.dateEnded}`;
+        });
+        };
+        updateProgressBars();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const signOutButton = document.getElementById("sign-out-button");
+
+        signOutButton.addEventListener("click", function() {
+            window.location.href = "{% url 'logout' %}";  
+        });
+    });
+   
+</script>
+
+</html>
