@@ -24,10 +24,11 @@ class RegistrationView(View):
                 email = form.cleaned_data['email']
 
                 # Use the AccountService to hash the password and save the user
-                AccountService01.save_user_with_hashed_password(username, password, email=email)
+                user = AccountService01.save_user_with_hashed_password(username, password, email=email)
                 
                 # Send success JSON response with a message and redirect URL
-                return JsonResponse({
+                if user: 
+                    return JsonResponse({
                     'success': True,
                     'message': 'Registration successful!',
                     'redirect_url': reverse('login')
